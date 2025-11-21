@@ -1,0 +1,15 @@
+
+-- DAX measures to add in Power BI (adjust table name if different)
+Total Sales = SUM('Financial-Analytics-data1_cleaned'[_Sales])
+Total Profit = SUM('Financial-Analytics-data1_cleaned'[_Profit])
+Profit Margin % = DIVIDE([Total Profit], [Total Sales], 0)
+YoY Sales = 
+VAR CurrentYear = YEAR(MAX('Financial-Analytics-data1_cleaned'[None])) 
+RETURN
+    CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Financial-Analytics-data1_cleaned'[None]))
+Sales Growth % = DIVIDE([Total Sales] - [YoY Sales], [YoY Sales], 0)
+Running Total Sales = CALCULATE([Total Sales], FILTER(ALLSELECTED('Financial-Analytics-data1_cleaned'[None]), 'Financial-Analytics-data1_cleaned'[None] <= MAX('Financial-Analytics-data1_cleaned'[None]))) 
+Sales % of Total = DIVIDE([Total Sales], CALCULATE([Total Sales], ALL('Financial-Analytics-data1_cleaned')))
+-- Customer Retention requires a customer dimension with first/last purchase flags; placeholder outline:
+-- Create column: FirstPurchaseDate = CALCULATE(MIN(Table[Date]), ALLEXCEPT(Table, Table[CustomerID]))
+-- Then compute cohorts / retained customers per period.

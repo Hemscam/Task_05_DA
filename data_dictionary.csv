@@ -1,0 +1,8 @@
+column,dtype,nulls
+Name,object,0
+Mar Cap - Crore,float64,0
+Sales Qtr - Crore,float64,0
+Market_Cap_Category,object,0
+Sales_Qrt_Category,object,0
+_Sales,float64,0
+_Profit,int64,0
